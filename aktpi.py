@@ -37,6 +37,6 @@ while True:
 TDL
 -sql e depola
 -liste
--filtrele+arama=cihazagöre
+-filtrele+arama=cihaza göre
 
 '''
