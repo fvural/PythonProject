@@ -8,7 +8,8 @@ cls()
 import time
 starttime=time.time()
 
-#sıcaklık,nem,lokasyon,tarih+saat
+#sıcaklık,nem,lokasyon,tarih+saat,cihazno
+x=0
 while True:
   import sqlite3
 
@@ -24,7 +25,8 @@ while True:
   no = random.randint(1, 99)
   date = str(datetime.now())
   sql = veritabani_sec.execute("INSERT INTO ogrenciler (no,adi,soyadi,date) VALUES(?,?,?,?)", (no, adi, soyadi, date))
-  print( no,adi, soyadi,date)
+  x=x+1
+  print( x,no,adi, soyadi,date)
   baglanti.commit()
   baglanti.close()
 
