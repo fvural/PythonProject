@@ -27,8 +27,16 @@ while True:
   date = str(datetime.now())
   sql = veritabani_sec.execute("INSERT INTO aktas (cihaz,lokasyon,sicaklik,nem,date) VALUES(?,?,?,?,?)", (cihaz, lokasyon, sicaklik, nem, date))
   x=x+1
-  print( x,cihaz,lokasyon,sicaklik,nem,date)
+  print( x,date,cihaz,lokasyon,sicaklik,nem)
   baglanti.commit()
   baglanti.close()
 
   time.sleep(10.0 - ((time.time() - starttime) % 10.0))
+
+'''
+TDL
+-sql e depola
+-liste
+-filtrele+arama=cihazagöre
+
+'''
