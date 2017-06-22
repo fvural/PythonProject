@@ -13,7 +13,7 @@ x=0
 while True:
   import sqlite3
 
-  baglanti = sqlite3.connect('aktpi.db')
+  baglanti = sqlite3.connect('database.db')
   baglanti.row_factory = sqlite3.Row
   veritabani_sec = baglanti.cursor()
   # baglantikapatmavekaydetme.
@@ -25,7 +25,7 @@ while True:
   sicaklik = random.randint(1, 99)
   nem = random.randint(1, 99)
   date = str(datetime.now())
-  sql = veritabani_sec.execute("INSERT INTO aktas (cihaz,lokasyon,sicaklik,nem,date) VALUES(?,?,?,?,?)", (cihaz, lokasyon, sicaklik, nem, date))
+  sql = veritabani_sec.execute("INSERT INTO aktpi (cihaz,lokasyon,sicaklik,nem,date) VALUES(?,?,?,?,?)", (cihaz, lokasyon, sicaklik, nem, date))
   x=x+1
   print( x,date,cihaz,lokasyon,sicaklik,nem)
   baglanti.commit()

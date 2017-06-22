@@ -13,7 +13,7 @@ x=0
 while True:
   import sqlite3
 
-  baglanti = sqlite3.connect('veriler.db')
+  baglanti = sqlite3.connect('database.db')
   baglanti.row_factory = sqlite3.Row
   veritabani_sec = baglanti.cursor()
   # baglantikapatmavekaydetme.

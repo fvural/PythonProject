@@ -9,7 +9,7 @@ conn = MySQLdb.connect (host = "sql302.byethost6.com",
 # db yada *database diye kullanılsın...
 
 import sqlite3
-baglanti=sqlite3.connect('veriler.db')
+baglanti=sqlite3.connect('database.db')
 #baglanti=sqlite3.connect('\\aktdesktop008\Programlar\veritabani\veriler.db')
 baglanti.row_factory=sqlite3.Row
 veritabani_sec=baglanti.cursor()
