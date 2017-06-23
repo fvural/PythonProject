@@ -1,5 +1,3 @@
-
-
 abc="abc"
 
 def xyz():

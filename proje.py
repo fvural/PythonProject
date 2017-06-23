@@ -7,12 +7,7 @@ vt=vt.vt
 import random
 from datetime import datetime
 
-'''
-def cls():
-    import os
-    os.system('cls')
-    return
-'''
+
 import fonk
 print(fonk.f())
 
@@ -20,7 +15,7 @@ print(fonk.f())
 
 import menu
 m=menu.m
-print(abc)
+
 
 
 if (m==1):
@@ -194,11 +189,6 @@ else:
 con.commit()
 con.close()
 ########################################################
-#ekrantemizlemek
+
 #programdançıkış
 
-#ifilegelenmenütespiti
-
-
-#nem.ısıvsprogramı
-#sqliuzakolanabağlanma

@@ -1,7 +1,8 @@
-import sqlite3
-baglanti=sqlite3.connect('database.db')
-baglanti.row_factory=sqlite3.Row
-veritabani_sec=baglanti.cursor()
+
+import vt
+con=vt.con
+vt=vt.vt
+
 
 def cls():
     import os
@@ -12,7 +13,7 @@ def cls():
 
 def menu():
     global m
-    sum=veritabani_sec.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
+    sum=vt.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
     print("\n")
     print('Toplam  = ',sum,'kayıt var.')
 
