@@ -1,55 +1,31 @@
-#v11
-'''
-conn = MySQLdb.connect (host = "sql302.byethost6.com",
-                        user = "b6_20276654",
-                        passwd = "159753",
-                        db = "b6_20276654_1")
-'''
 
-# db yada *database diye kullanılsın...
+import vt
+con=vt.con
+vt=vt.vt
 
-import sqlite3
-baglanti=sqlite3.connect('database.db')
-#baglanti=sqlite3.connect('\\aktdesktop008\Programlar\veritabani\veriler.db')
-baglanti.row_factory=sqlite3.Row
-veritabani_sec=baglanti.cursor()
-#baglantikapatmavekaydetme.
 
 import random
 from datetime import datetime
 
+'''
 def cls():
     import os
     os.system('cls')
     return
-
-def menu():
-    sum=veritabani_sec.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
-    print("\n")
-    print('Toplam  = ',sum,'kayıt var.')
-
-    cls()
-    print("==================================")
-    print("|           |MENU|               |")
-    print("==================================")
-    print("| [1]Listele  ","(",sum,")","            |")
-    print("| [2]VeriEkle                    |")
-    print("| [3]Güncelleme                  |")
-    print("| [4]Silme                       |")
-    print("| [5]Arama                       |")
-    print("| [6]Çıkış                       |")
-    print("| [7]Detay                       |")#detay+silmeopsiyonu+güncellemeopsiyonu...
-    print("==================================")
-    m=float(input("Hangi Islemi Yapmak Istıyorsun?="))
-    return m
-
-m=menu()
+'''
+import fonk
+print(fonk.f())
 
 
 
-if m==1:
+import menu
+m=menu.m
+print(abc)
 
-    oku=veritabani_sec.execute('Select * from ogrenciler order by id asc')
+
+if (m==1):
+
+    oku=vt.execute('Select * from ogrenciler order by id asc')
 
     x=1
     print("----------------------------------------------------------------------------------")
@@ -61,10 +37,13 @@ if m==1:
         print(a,x,a,verileri_cek['id'],a,verileri_cek['adi'],"",a,verileri_cek['soyadi'],"",a,verileri_cek['no'],a,verileri_cek['date'])
         x=x+1
     print("----------------------------------------------------------------------------------")
-    sum=veritabani_sec.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
+    sum=vt.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
     #print("\n")
     print('Toplam =',sum,'kayıt var.')
 
+    import menu
+    #import os
+    #os.system('python menu.py') # go to gibi menüye gönmeyi sağlıyor #
 
 elif(m==2):
     '''
@@ -75,9 +54,9 @@ elif(m==2):
     soyadi=input("Soyadı=")
     no=random.randint(1,99)
 
-    #ekle=veritabani_sec.execute("insertintoogrenciler(ogrenci_no,adi,soyadi)VALUES('1234',?,?)",(adi,soyadi))
-    #ekle=veritabani_sec.execute("insertintoogrenciler(ogrenci_no,adi,soyadi)VALUES('1234','fatih','vural')")
-    veritabani_sec.execute("INSERT INTO ogrenciler (ogrenci_no,adi,soyadi) VALUES(?,?,?)",(no,adi,soyadi))
+    #ekle=vt.execute("insertintoogrenciler(ogrenci_no,adi,soyadi)VALUES('1234',?,?)",(adi,soyadi))
+    #ekle=vt.execute("insertintoogrenciler(ogrenci_no,adi,soyadi)VALUES('1234','fatih','vural')")
+    vt.execute("INSERT INTO ogrenciler (no,adi,soyadi) VALUES(?,?,?)",(no,adi,soyadi))
     '''
     if(adi!=''):
     print("AdıAlanıBoşBırakılamaz")#sanırımbununiçinfonktanımlanacak
@@ -95,7 +74,7 @@ elif(m==4):
     #kayıtyoksahatamesajı
     #kayıtvarsaeminmisinizdiyesorsun
     sq='select * from ogrenciler where id=?'
-    kontrol=veritabani_sec.execute(sq,(bak,))
+    kontrol=vt.execute(sq,(bak,))
     pw = kontrol.fetchone()
 
     if (not pw):  #Kayıt Yoksa Burası
@@ -108,7 +87,7 @@ elif(m==4):
             cls()
             print(bak," nolu Kayıt silindi...")
             sql = 'delete from ogrenciler where id=?'
-            sil = veritabani_sec.execute(sql, (bak,))
+            sil = vt.execute(sql, (bak,))
 
 
         elif answer.lower().startswith("h"):  # HAYIR Durumunda Yapılacak
@@ -129,7 +108,7 @@ elif(m==5):
 
     #like='fat'
     print(like)
-    oku=veritabani_sec.execute("Select * from ogrenciler where adi like ?",('%'+like+'%',))
+    oku=vt.execute("Select * from ogrenciler where adi like ?",('%'+like+'%',))
 
     x=1
     print("----------------------------------------------------------------------------------")
@@ -142,7 +121,7 @@ elif(m==5):
         x=x+1
 
 
-    sum=veritabani_sec.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
+    sum=vt.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
     print("\n")
     print('Toplam  = ',sum,'kayıt var.')
 
@@ -168,7 +147,7 @@ elif(m==99):
         cls()
         print("Tüm Kayıtlar temizlendi...")
         sql='delete from ogrenciler'
-        sil=veritabani_sec.execute(sql)
+        sil=vt.execute(sql)
 
     elif answer.lower().startswith("h"): # HAYIR Durumunda Yapılacak
         print("Tümünü silme işlemi iptal edildi...")
@@ -184,11 +163,11 @@ elif(m==100): # TEK Otomatik Kayıt Girer
     soyadi=random.choice(['fatih','faruk','mehmet','serkan','ahmet'])
     no=random.randint(1,99)
     date = str(datetime.now())
-    veritabani_sec.execute("INSERT INTO ogrenciler (no,adi,soyadi,date) VALUES(?,?,?,?)",(no,adi,soyadi,date))
+    vt.execute("INSERT INTO ogrenciler (no,adi,soyadi,date) VALUES(?,?,?,?)",(no,adi,soyadi,date))
 
 elif(m==101):
     count=0
-    while count < 20 :
+    while count < 10 :
         #print(count)
         #count+=1
         adi=random.choice(['fatih','faruk','mehmet','serkan','ahmet','barış','yusuf','merve','eda','mustafa','gokmen','serdar','seckın','erhan','gülver','rasim','nazım','emre','hüseyin','ilker','sami'
@@ -198,10 +177,13 @@ elif(m==101):
 
         date = str(datetime.now())
         no=random.randint(1000,9999)
-        veritabani_sec.execute("INSERT INTO ogrenciler (no,adi,soyadi,date) VALUES(?,?,?,?)", (no,adi,soyadi,date))
+        vt.execute("INSERT INTO ogrenciler (no,adi,soyadi,date) VALUES(?,?,?,?)", (no,adi,soyadi,date))
         count+=1
 elif m.lower().startswith(""): #(answer=""):
         print("Boş Bırakılamaz...!")
+
+        con.commit()
+        con.close()
 else:
     cls()
     print("Lütfen Menudeki Seceneklerden Seciniz")
@@ -209,8 +191,8 @@ else:
 
 
 ########################################################
-baglanti.commit()
-baglanti.close()
+con.commit()
+con.close()
 ########################################################
 #ekrantemizlemek
 #programdançıkış
