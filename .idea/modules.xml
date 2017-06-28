@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../OGU-Kutuphane-master/.idea/OGU-Kutuphane-master.iml" filepath="$PROJECT_DIR$/../OGU-Kutuphane-master/.idea/OGU-Kutuphane-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../OGU-Kutuphane-master/.idea/OGU-Kutuphane-master.iml" filepath="$PROJECT_DIR$/../../OGU-Kutuphane-master/.idea/OGU-Kutuphane-master.iml" />
+      <module fileurl="file://C:\Users\fvural\Desktop\PythonProject\OGU-Kutuphane-master\.idea\OGU-Kutuphane-master.iml" filepath="C:\Users\fvural\Desktop\PythonProject\OGU-Kutuphane-master\.idea\OGU-Kutuphane-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/PythonProject.iml" filepath="$PROJECT_DIR$/.idea/PythonProject.iml" />
     </modules>
   </component>

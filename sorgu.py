@@ -1,7 +1,13 @@
+
 import sqlite3
 con=sqlite3.connect('database.db') # Veritabanına Bağlan
 con.row_factory=sqlite3.Row
 vt=con.cursor() #Veritabanında İşlem yapabilmek için Cursor oluştur
+'''
+import pymysql
+con = pymysql.connect(host = '127.0.0.1', port = 3388, user = 'root', passwd = '159753', db = 'python')
+vt = con.cursor()
+'''
 
 import fonk
 
@@ -186,12 +192,17 @@ def insertall():
 def liste():
     import fonk
     fonk.cls()
-    oku = vt.execute('Select * from ogrenciler order by id asc')
+
+    #oku = vt.execute('Select * from ogrenciler order by id asc')
+    sql = "Select * from ogrenciler order by id asc"
+    oku=vt.execute(sql)
 
     x = 1
     print("----------------------------------------------------------------------------------")
     print("| NO | ID | ADI | SOYADI | DETAY  ")
-    for verileri_cek in oku.fetchall():
+    results=vt.fetchall()
+    for verileri_cek in results:
+
         date = verileri_cek['date']
         date = date[:19]
         a = ("|")
@@ -200,6 +211,8 @@ def liste():
         print(a, x, a, verileri_cek['id'], a, date, a, verileri_cek['adi'], "", a, verileri_cek['soyadi'], "", a,
               verileri_cek['no'], a)
         x = x + 1
+
+
     print("----------------------------------------------------------------------------------")
     sum = vt.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
     # print("\n")

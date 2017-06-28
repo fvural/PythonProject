@@ -1,15 +1,33 @@
-
+'''
 import vt
 con=vt.con
 vt=vt.vt
+'''
 
+
+import sqlite3
+con=sqlite3.connect('database.db') # Veritabanına Bağlan
+con.row_factory=sqlite3.Row
+vt=con.cursor() #Veritabanında İşlem yapabilmek için Cursor oluştur
+'''
+import pymysql
+con = pymysql.connect(host = '127.0.0.1', port = 3388, user = 'root', passwd = '159753', db = 'python')
+vt = con.cursor()
+'''
+
+########################################################################################################################
 import random
 from datetime import datetime
 import sorgu
 
 def menu():
     global m
-    sum=vt.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
+    #sum=vt.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
+
+    sorgu1=vt.execute("SELECT COUNT(*) FROM ogrenciler")
+    count=sorgu1.fetchone()
+    sum=count[0]
+
     print("\n")
 
     print("==================================")
