@@ -1,30 +1,48 @@
-import pymysql
+################################################################33
+#sütun numarasına göre listeleme
 
-db = pymysql.connect(host = '127.0.0.1', port = 3388, user = 'root', passwd = '159753', db = 'python')
-if(db):
-    print('Baglanti Başarılı!')
-else:
-    print('Bağlantı Başarısız!')
+def mysqlist2():
 
-cursor = db.cursor()
+    import pymysql
+    con = pymysql.connect(host = '127.0.0.1', port = 3388, user = 'root', passwd = '159753', db = 'python')
+    vt = con.cursor()
 
-sql = "SELECT * FROM ogrenciler"
-cursor.execute(sql)
+    sql = "SELECT * FROM ogrenciler"
+    vt.execute(sql)
 
-results = cursor.fetchall()
-for row in results:
+    results = vt.fetchall()
+    for row in results:
+        adi = row[1]
+        soyadi = row[2]
+        date = row[3]
+        no = row[4]
+        print("%s : %s,%s,%s" % \
+              (no, date, adi, soyadi))
 
-    lname = row[1]
-    adi = row[2]
-    soyadi = row[3]
-    date = row[4]
-    no = row[4]
+    con.commit()
 
-    # Now print fetched result
-    print("%s,%s,%s,%s" % \
-          (adi, soyadi, date, no))
+################################################################33
+#sütun ismine göre listeleme
 
-db.commit()
+def mysqlist1():
+
+    import pymysql
+    con = pymysql.connect(host = '127.0.0.1', port = 3388, user = 'root', passwd = '159753', db = 'python')
+    vt = con.cursor(pymysql.cursors.DictCursor)
+
+    sql = "Select * from ogrenciler order by id asc"
+    oku=vt.execute(sql)
+
+    x=1
+    for row in vt:
+        no = row['no']
+        adi=row['adi']
+        soyadi=row['soyadi']
+        date=row['date']
+        print(x,no,date,adi,soyadi)
+        x = x + 1
+    con.commit()
 
 ################################################################33
 
+mysqlist1()

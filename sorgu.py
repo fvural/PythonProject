@@ -5,8 +5,8 @@ con.row_factory=sqlite3.Row
 vt=con.cursor() #Veritabanında İşlem yapabilmek için Cursor oluştur
 '''
 import pymysql
-con = pymysql.connect(host = '127.0.0.1', port = 3388, user = 'root', passwd = '159753', db = 'python')
-vt = con.cursor()
+db = pymysql.connect(host = '127.0.0.1', port = 3388, user = 'root', passwd = '159753', db = 'python')
+vt = db.cursor(pymysql.cursors.DictCursor)
 '''
 
 import fonk
@@ -193,7 +193,6 @@ def liste():
     import fonk
     fonk.cls()
 
-    #oku = vt.execute('Select * from ogrenciler order by id asc')
     sql = "Select * from ogrenciler order by id asc"
     oku=vt.execute(sql)
 
@@ -201,15 +200,13 @@ def liste():
     print("----------------------------------------------------------------------------------")
     print("| NO | ID | ADI | SOYADI | DETAY  ")
     results=vt.fetchall()
-    for verileri_cek in results:
+    for row in results:
 
-        date = verileri_cek['date']
+        date = row['date']
         date = date[:19]
         a = ("|")
         print("----------------------------------------------------------------------------------")
-
-        print(a, x, a, verileri_cek['id'], a, date, a, verileri_cek['adi'], "", a, verileri_cek['soyadi'], "", a,
-              verileri_cek['no'], a)
+        print(a, x, a, row['id'], a, date, a, row['adi'], "", a, row['soyadi'], "", a,row['no'], a)
         x = x + 1
 
 
@@ -218,10 +215,7 @@ def liste():
     # print("\n")
     print('Toplam =', sum, 'kayıt var.')
 
-    # import menu
-    # import os
-    # os.system('python menu.py') # go to gibi menüye gönmeyi sağlıyor #
-################################################################################################################
+   ################################################################################################################
 def cikis():
     print("\n")
     print("Programdan Çıkış yapılacak !")
