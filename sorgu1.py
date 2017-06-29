@@ -1,13 +1,13 @@
-
+'''
 import sqlite3
 con=sqlite3.connect('database.db') # Veritabanına Bağlan
 con.row_factory=sqlite3.Row
 vt=con.cursor() #Veritabanında İşlem yapabilmek için Cursor oluştur
 '''
 import pymysql
-db = pymysql.connect(host = '127.0.0.1', port = 3388, user = 'root', passwd = '159753', db = 'python')
-vt = db.cursor(pymysql.cursors.DictCursor)
-'''
+con = pymysql.connect(host = '127.0.0.1', port = 3388, user = 'root', passwd = '159753', db = 'python')
+vt = con.cursor(pymysql.cursors.DictCursor)
+
 
 import fonk
 
@@ -17,9 +17,15 @@ def delete(table_name, id):
     #print(table_name) # GELEN DEĞERİ GÖRMEK İÇİN
     #print(id) # GELEN DEĞERİ GÖRMEK İÇİN
 
+    '''
     sq = 'select * from ogrenciler where id=?'
     kontrol = vt.execute(sq, (id,))
     pw = kontrol.fetchone()
+    '''
+
+    sql = "select * from ogrenciler where id='%s'" % (id)
+    vt.execute(sql)
+    pw = vt.fetchone()
 
     if (not pw):  # Kayıt Yoksa Burası
         print("Böyle Bir Kayıt YOK !!!")
@@ -27,14 +33,15 @@ def delete(table_name, id):
 
 ################################################
 # silinecek olan kayıdı göstermek için ...
-        oku =vt.execute('select * from {tn} where id={did} '. \
-                   format(did=id, tn=table_name))
+        sql = "select * from ogrenciler where id='%s'" % (id)
+        oku = vt.execute(sql)
 
 
         x = 1
         print("----------------------------------------------------------------------------------")
         print("| NO | ID  | TARIH               | ADI     | SOYADI  |  ")
-        for verileri_cek in oku.fetchall():
+        results=vt.fetchall()
+        for verileri_cek in results:
             a = ("|")
             print("----------------------------------------------------------------------------------")
             date = verileri_cek['date']
@@ -84,12 +91,10 @@ def insert():
     print(no)
     print(date)
 
-
     query = "INSERT INTO ogrenciler(adi,soyadi,date,no) " \
                 "VALUES(%s,%s,%s,%s)"
     args = (adi, soyadi, date, no)
     vt.execute(query, args)
-
     #vt.execute("INSERT INTO ogrenciler (no,adi,soyadi,date) VALUES(?,?,?,?)", (no, adi, soyadi, date))
     con.commit()
 
@@ -175,21 +180,18 @@ def insertall():
         no = random.randint(1, 99)
         date = str(datetime.now())
 
-        adi = random.choice(
-            ['fatih', 'faruk', 'mehmet', 'serkan', 'ahmet', 'barış', 'yusuf', 'merve', 'eda', 'mustafa', 'gokmen',
-             'serdar', 'seckın', 'erhan', 'gülver', 'rasim', 'nazım', 'emre', 'hüseyin', 'ilker', 'sami'
-
-                , 'serkan', 'onur', 'veysel', 'alper', 'hakan', 'harun', 'fikri', 'mesut', 'volkan', 'onur'])
-
-        soyadi = random.choice(
-            ['fatih', 'faruk', 'mehmet', 'serkan', 'ahmet', 'barış', 'yusuf', 'merve', 'eda', 'mustafa', 'gokmen',
-             'serdar', 'seckın', 'erhan', 'gülver', 'rasim', 'nazım'])
+        adi = random.choice(['fatih', 'faruk', 'mehmet', 'serkan', 'ahmet'])
+        soyadi = random.choice(['fatih', 'faruk', 'mehmet', 'serkan', 'ahmet'])
 
         date = str(datetime.now())
 
         no = random.randint(1000, 9999)
 
-        vt.execute("INSERT INTO ogrenciler (no,adi,soyadi,date) VALUES(?,?,?,?)", (no, adi, soyadi, date))
+
+        vt.execute("INSERT INTO ogrenciler(adi,soyadi,date,no) VALUES('{a}','{b}','{c}','{d}') ". \
+                       format(a=adi, b=soyadi, c=date, d=no))
+
+        #vt.execute("INSERT INTO ogrenciler (no,adi,soyadi,date) VALUES(?,?,?,?)", (no, adi, soyadi, date))
 
         count += 1
 
@@ -200,25 +202,32 @@ def liste():
     import fonk
     fonk.cls()
 
-    sql = "Select * from ogrenciler order by id asc"
+    #sql = "Select * from ogrenciler order by id asc"
+    sql = "Select * from aktas_envanter_liste "
     oku=vt.execute(sql)
 
     x = 1
-    print("----------------------------------------------------------------------------------")
+    print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------")
     print("| NO | ID | ADI | SOYADI | DETAY  ")
     results=vt.fetchall()
     for row in results:
 
-        date = row['date']
+        date = row['location']
         date = date[:19]
         a = ("|")
-        print("----------------------------------------------------------------------------------")
-        print(a, x, a, row['id'], a, date, a, row['adi'], "", a, row['soyadi'], "", a,row['no'], a)
+        print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        #print(a, x, a, row['barkod'], a, date, a, row['adi'], "", a, row['bilgisayar_adi'], "", a,row['serial'], a)
+        print(x,a,row['status'],a,row['barkod'],a,row['officer'],a,row['name'],a,row['before_user'],a,row['computer_name'],a,row['type'],a,row['brand'],a,row['model'],a,row['serial'],a,row['cpu'],a,row['ram'],a,row['hdd'],a,row['ssd'],a,row['location'],a,row['os'],a,row['operation_date'],a,row['whodid'],a,row['note'])
         x = x + 1
 
 
-    print("----------------------------------------------------------------------------------")
-    sum = vt.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
+
+    print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+    sql_total = "SELECT COUNT(*) FROM ogrenciler"
+    vt.execute(sql_total)
+    total = vt.fetchone()
+    sum = total['COUNT(*)']
+
     # print("\n")
     print('Toplam =', sum, 'kayıt var.')
 
@@ -249,7 +258,9 @@ def tekkayit():
 
     no = random.randint(1, 99)
     date = str(datetime.now())
-    vt.execute("INSERT INTO ogrenciler (no,adi,soyadi,date) VALUES(?,?,?,?)", (no, adi, soyadi, date))
+    vt.execute("INSERT INTO ogrenciler(adi,soyadi,date,no) VALUES('{a}','{b}','{c}','{d}') ". \
+               format(a=adi, b=soyadi, c=date, d=no))
+    #vt.execute("INSERT INTO ogrenciler (no,adi,soyadi,date) VALUES(?,?,?,?)", (no, adi, soyadi, date))
     con.commit()
 
 
