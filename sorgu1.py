@@ -10,7 +10,7 @@ vt = con.cursor(pymysql.cursors.DictCursor)
 
 
 import fonk
-
+#
 ################################################################################################################
 
 def delete(table_name, id):
