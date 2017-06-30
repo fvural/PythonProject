@@ -3,7 +3,7 @@ import vt
 con=vt.con
 vt=vt.vt
 '''
-
+#
 '''
 import sqlite3
 con=sqlite3.connect('database.db') # Veritabanına Bağlan
