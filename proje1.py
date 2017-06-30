@@ -14,42 +14,27 @@ import pymysql
 con = pymysql.connect(host = '127.0.0.1', port = 3388, user = 'root', passwd = '159753', db = 'python')
 vt = con.cursor(pymysql.cursors.DictCursor)
 
-
 ########################################################################################################################
 import random
 from datetime import datetime
 import sorgu1
 
 def menu():
-    global m
     #sum=vt.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
 
-
-    sql_total = "SELECT COUNT(*) FROM ogrenciler"
-    vt.execute(sql_total)
-    total = vt.fetchone()
-    sum = total['COUNT(*)']
-
-
-    print("\n")
-
-    print("==================================")
-    print("|           |MENU|               |")
-    print("==================================")
-    print("| [1]Listele  ","(",sum,")","            |")
-    print("| [2]VeriEkle                    |")
-    print("| [3]Güncelleme                  |")
-    print("| [4]Silme                       |")
-    print("| [5]Arama                       |")
-    print("| [6]Çıkış                       |")
-    print("| [7]Detay                       |")#detay+silmeopsiyonu+güncellemeopsiyonu...
-    print("==================================")
-    m=float(input("Hangi Islemi Yapmak Istıyorsun?="))
+    m=sorgu1.tablo()
 
     if (m == 1):
 
+        print("\033[1;36;40m3 \033 ")
+
         sorgu1.liste()
+
+        print("\033[0;37;40m \n")
+
         menu()
+
+
     elif (m == 2):
 
         sorgu1.insert()

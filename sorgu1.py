@@ -5,12 +5,46 @@ con.row_factory=sqlite3.Row
 vt=con.cursor() #Veritabanında İşlem yapabilmek için Cursor oluştur
 '''
 import pymysql
-con = pymysql.connect(host = '127.0.0.1', port = 3388, user = 'root', passwd = '159753', db = 'python')
+con = pymysql.connect(host = '127.0.0.1', port = 3388, user = 'root', passwd = '159753', db = 'python', charset='utf8')
 vt = con.cursor(pymysql.cursors.DictCursor)
 
 
 import fonk
 #
+
+
+################################################################################################################
+def tablo():
+    #global m
+    #sum=vt.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
+
+
+    sql_total = "SELECT COUNT(*) FROM aktas_envanter_liste"
+    vt.execute(sql_total)
+    total = vt.fetchone()
+    sum = total['COUNT(*)']
+
+
+
+
+    print("\n")
+    print("==================================")
+    print("|           |MENU|               |")
+    print("==================================")
+    print("| [1]Listele  ","(",sum,")","            |")
+    print("| [2]VeriEkle                    |")
+    print("| [3]Güncelleme                  |")
+    print("| [4]Silme                       |")
+    print("| [5]Arama                       |")
+    print("| [6]Çıkış                       |")
+    print("| [7]Detay                       |")#detay+silmeopsiyonu+güncellemeopsiyonu...
+    print("==================================")
+    m=float(input("Hangi Islemi Yapmak Istıyorsun?="))
+    #m=input("Hangi Islemi Yapmak Istıyorsun?=")
+    return m
+
+
+
 ################################################################################################################
 
 def delete(table_name, id):
@@ -206,32 +240,142 @@ def liste():
     sql = "Select * from aktas_envanter_liste "
     oku=vt.execute(sql)
 
+    sari="\033[1;33;40m "
+    kirmizi="\033[1;31;40m "
+    mavi="\033[1;34;40m "
+    yesil="\033[1;32;40m "
+    magenta="\033[1;35;40m "
+    normal = "\033[1;37;40m "
+
+    d1 = sari + "aktas" + "\33"+normal
+    d2 = kirmizi + "fatih" + "\33"+normal
+    d3 = mavi + "vural" + "\33"+normal
+    d4 = yesil + "it" + "\33"+normal
+    d5 = magenta + "helpdesk" + "\33"+normal
+
+
+
+
+
+    name1="AD"
+    name1 = name1 + (10 - len(name1)) * ' '
+    name1 = name1[:10]
+
     x = 1
-    print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-    print("| NO | ID | ADI | SOYADI | DETAY  ")
+    print("====================================================================================================================================================================")
+    print("000  |",name1,"s")
     results=vt.fetchall()
     for row in results:
 
         date = row['location']
         date = date[:19]
-        a = ("|")
-        print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-        #print(a, x, a, row['barkod'], a, date, a, row['adi'], "", a, row['bilgisayar_adi'], "", a,row['serial'], a)
-        print(x,a,row['status'],a,row['barkod'],a,row['officer'],a,row['name'],a,row['before_user'],a,row['computer_name'],a,row['type'],a,row['brand'],a,row['model'],a,row['serial'],a,row['cpu'],a,row['ram'],a,row['hdd'],a,row['ssd'],a,row['location'],a,row['os'],a,row['operation_date'],a,row['whodid'],a,row['note'])
+        a = (" | ")
+
+        if x<10:
+            y="00"+str(x)
+        elif x<100:
+            y="0"+str(x)
+        else:
+            y=x
+
+
+
+
+        status=row['status']
+        status = status + (10 - len(status)) * ' '
+        if (row['status'] == "Kullanımda"):
+            status = yesil + status +normal
+        elif (row['status'] == "Boşta"):
+            status = sari + status +normal
+
+
+        barkod=row['barkod']
+        barkod = barkod + (16 - len(barkod)) * ' '
+        barkod1 = sari + barkod + "\33" + normal
+
+
+        officer=row['officer']
+        if officer != "X":
+            officer="-"
+        officer = officer + (1 - len(officer)) * ' '
+        #officer = (officer + " ")[:3]
+
+
+        name=row['name']
+        name = name + (30 - len(name)) * ' '
+        name1 = kirmizi + name + "\33" + normal
+        name=name[:40]
+
+
+        before_user=row['before_user']
+        before_user="{:<20}".format(before_user)
+        before_user = before_user[:20]
+
+
+        computer_name=row['computer_name']
+        computer_name = computer_name + (15 - len(computer_name)) * ' '
+        computer_name1 = mavi + computer_name + "\33" + normal
+
+
+        location=row['location']
+        location = location + (5 - len(location)) * ' '
+        if (row['location'] == "BOSB"):
+            location = yesil + location +normal
+        elif(row['location'] == "OSB"):
+            location = kirmizi + location +normal
+        elif (row['location'] == "DOSB"):
+            location = mavi + location +normal
+
+
+        location1 = sari + location + "\33" + normal
+
+        operation_date=row['operation_date']
+        operation_date = operation_date + (15 - len(operation_date)) * ' '
+        operation_date1 = yesil + operation_date + "\33" + normal
+
+
+        model=row['model']
+        serial=row['serial']
+        cpu=row['cpu']
+        ram=row['ram']
+        hdd=row['hdd']
+        ssd=row['ssd']
+        os=row['os']
+        whodid=row['whodid']
+        note=row['note']
+
+        print("====================================================================================================================================================================")
+
+        '''
+        if x%2==0:
+            print(sari)
+            print(y, a, status, a, barkod, a, officer, a, name, a, before_user, a, computer_name, a, location, a,
+                  operation_date)
+
+        else:
+            print(normal)
+            print(y, a, status, a, barkod, a, officer, a, name, a, before_user, a, computer_name, a, location, a,
+                  operation_date)
+
+        '''
+        print(y, a, status, a, barkod, a, officer, a, name, a, before_user, a, computer_name, a, location, a,
+              operation_date)
+
         x = x + 1
 
 
 
     print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-    sql_total = "SELECT COUNT(*) FROM ogrenciler"
+    sql_total = "SELECT COUNT(*) FROM aktas_envanter_liste"
     vt.execute(sql_total)
     total = vt.fetchone()
     sum = total['COUNT(*)']
 
     # print("\n")
-    print('Toplam =', sum, 'kayıt var.')
+    print('\033[1;31;40mToplam =', sum, 'kayıt var.\033')
 
-   ################################################################################################################
+
+    ################################################################################################################
 def cikis():
     print("\n")
     print("Programdan Çıkış yapılacak !")
