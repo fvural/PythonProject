@@ -10,13 +10,7 @@ birlikte_liste = ",".join(map(lambda x: str.format("'{}'",x), liste))
 
 print(birlikte_liste)
 
-List=[]
-List=input("Değer Gir :")
-print(List)
-List=input("Değer Gir :")
-list=list.append(list)
-print(List)
-List=input("Değer Gir :")
-print(List)
-List=input("Değer Gir :")
-print(List)
+Liste = ['Ali']
+input("gir:")
+Liste.append('Mehmet') #Mehmet verisin ekliyoruz.
+print(Liste)
