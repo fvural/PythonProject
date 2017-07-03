@@ -243,7 +243,6 @@ def liste():
     durumu=['Boşta','Kontrol']
     durumu = ",".join(map(lambda x: str.format("'{}'", x), durumu))
 
-    print(durumu)
 
     liste=['KOSB','DOSB']
     #liste=str(liste)
