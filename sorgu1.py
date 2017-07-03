@@ -237,8 +237,23 @@ def liste():
     fonk.cls()
 
     #sql = "Select * from ogrenciler order by id asc"
-    sql = "Select * from aktas_envanter_liste "
-    oku=vt.execute(sql)
+    #sql = "Select * from aktas_envanter_liste where location in ('DOSB','KOSB','OSB')"
+    #oku=vt.execute(sql)
+
+    durumu=['Boşta','Kontrol']
+    durumu = ",".join(map(lambda x: str.format("'{}'", x), durumu))
+
+    print(durumu)
+
+    liste=['KOSB','DOSB']
+    #liste=str(liste)
+    liste_yeni=str(liste)[:-1]
+    l=liste_yeni[1:]
+
+
+    table_name = "aktas_envanter_liste"
+    oku=vt.execute("select * from aktas_envanter_liste where  status in ({d})". \
+               format(tn=table_name,l1=l,d=durumu))
 
     sari="\033[1;33;40m "
     kirmizi="\033[1;31;40m "
@@ -344,7 +359,7 @@ def liste():
         whodid=row['whodid']
         note=row['note']
 
-        print("====================================================================================================================================================================")
+        print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
         '''
         if x%2==0:
