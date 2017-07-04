@@ -243,6 +243,8 @@ def liste():
     durumu=['Boşta','Kontrol']
     durumu = ",".join(map(lambda x: str.format("'{}'", x), durumu))
 
+    global z
+    print(z)
 
     liste=['KOSB','DOSB']
     #liste=str(liste)
@@ -301,6 +303,8 @@ def liste():
             status = yesil + status +normal
         elif (row['status'] == "Boşta"):
             status = sari + status +normal
+        elif (row['status'] == "Kontrol"):
+            status = kirmizi + status + normal
 
 
         barkod=row['barkod']
