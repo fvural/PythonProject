@@ -19,10 +19,8 @@ import random
 from datetime import datetime
 import sorgu1
 
+#z= sorgu1.durumu()
 
-z=Liste = []
-z = ",".join(map(lambda x: str.format("'{}'", x), z))
-print(z)
 
 def menu():
     #sum=vt.execute("SELECT COUNT(*) FROM ogrenciler").fetchone()[0]
@@ -37,7 +35,6 @@ def menu():
 
         print("\033[0;37;40m \n")
 
-        print(Liste)
 
         menu()
 

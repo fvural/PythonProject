@@ -232,6 +232,10 @@ def insertall():
         con.commit()
 
 ################################################################################################################
+
+durumu=['Boşta','Kontrol']
+durumu = ",".join(map(lambda x: str.format("'{}'", x), durumu))
+print(durumu)
 def liste():
     import fonk
     fonk.cls()
@@ -240,11 +244,8 @@ def liste():
     #sql = "Select * from aktas_envanter_liste where location in ('DOSB','KOSB','OSB')"
     #oku=vt.execute(sql)
 
-    durumu=['Boşta','Kontrol']
-    durumu = ",".join(map(lambda x: str.format("'{}'", x), durumu))
 
-    global z
-    print(z)
+
 
     liste=['KOSB','DOSB']
     #liste=str(liste)
