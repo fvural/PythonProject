@@ -38,6 +38,8 @@ def tablo():
     print("| [5]Arama                       |")
     print("| [6]Çıkış                       |")
     print("| [7]Detay                       |")#detay+silmeopsiyonu+güncellemeopsiyonu...
+    print("| [8]Filtre                       |")#detay+silmeopsiyonu+güncellemeopsiyonu...
+
     print("==================================")
     m=float(input("Hangi Islemi Yapmak Istıyorsun?="))
     #m=input("Hangi Islemi Yapmak Istıyorsun?=")
@@ -233,12 +235,19 @@ def insertall():
 
 ################################################################################################################
 
-durumu=['Boşta','Kontrol']
+durumu=['Kontrol','Boşta']
 durumu = ",".join(map(lambda x: str.format("'{}'", x), durumu))
-print(durumu)
+
+liste = ['KOSB', 'DOSB']
+# liste=str(liste)
+liste_yeni = str(liste)[:-1]
+l = liste_yeni[1:]
+
+
 def liste():
     import fonk
     fonk.cls()
+
 
     #sql = "Select * from ogrenciler order by id asc"
     #sql = "Select * from aktas_envanter_liste where location in ('DOSB','KOSB','OSB')"
@@ -247,10 +256,7 @@ def liste():
 
 
 
-    liste=['KOSB','DOSB']
-    #liste=str(liste)
-    liste_yeni=str(liste)[:-1]
-    l=liste_yeni[1:]
+
 
 
     table_name = "aktas_envanter_liste"
@@ -281,6 +287,8 @@ def liste():
     x = 1
     print("====================================================================================================================================================================")
     print("000  |",name1,"s")
+    print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+
     results=vt.fetchall()
     for row in results:
 
@@ -363,7 +371,7 @@ def liste():
         whodid=row['whodid']
         note=row['note']
 
-        print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        #print("--------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
         '''
         if x%2==0:
@@ -428,7 +436,8 @@ def tekkayit():
 
 
 ###############################################################################################################
-
+def filtre():
+    print("filtre ekranı")
 
 
 

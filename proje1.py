@@ -20,6 +20,9 @@ from datetime import datetime
 import sorgu1
 
 #z= sorgu1.durumu()
+print(sorgu1.durumu)
+print(sorgu1.liste)
+
 
 
 def menu():
@@ -59,7 +62,10 @@ def menu():
         
         sorgu1.cikis()
         menu()
+    elif (m == 8):
 
+        sorgu1.filtre()
+        menu()
     elif (m == 9):
         cls()
 
